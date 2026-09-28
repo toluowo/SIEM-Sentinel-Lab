@@ -1,29 +1,120 @@
-<h1>Failed RDP attempts to Honeypot with Geolocation information</h1>
+# Microsoft Sentinel Detection Engineering Lab — RDP Honeypot & Threat Investigation
 
-<h2>Description</h2>
-This lab is focused on capturing and showing the analysis of brute force attempts made to a honeypot.
-The PowerShell script in this repository is responsible for outputting Windows event log information and additionally fetching the attackers' geographic information through a third-party API in this repository.
-<br><br>
-Detailed steps taken can also be found in this repository.
-<br><br>
-The honeypot's implementation used a Windows 10 Pro host hosted on Microsoft Azure. Failed login attempts from RDP connections captured in the Windows event viewer were fed to the third-party API tool to get more detailed information from the attacker's IP using the PowerShell script that served as the log exporter found in this repository.
-<br><br>
-The geolocation information generated from the API tool was then used to plot a map in Azure Sentinel; screenshots can be seen below.
+> Cloud SIEM lab demonstrating Windows RDP honeypot telemetry, failed-login analysis, PowerShell-based event enrichment, geographic visualization, and threat investigation using Microsoft Sentinel.
 
+## Security workflow
 
-<h2>Live attacks from Lithuania as can be seen on the Powershell script</h2>
-<img width="980" alt="Screenshot 2024-10-15 at 16 30 32" src="https://github.com/user-attachments/assets/1f583a4b-2540-4aea-beba-75f38f1531c6">
-<br><br>
-<h2>Live attacks on world map from different locations of the world over 5 days</h2>
-<img width="980" alt="Screenshot 2024-09-26 at 17 43 30" src="https://github.com/user-attachments/assets/40632393-9b41-4faa-bd88-0a95117a3393">
-<br><br>
-<img width="980" alt="Screenshot 2024-09-26 at 18 19 33" src="https://github.com/user-attachments/assets/5a53a57f-0e5e-46f7-a075-50ade34e77cc">
-<br><br>
-<img width="980" alt="Screenshot 2024-09-29 at 15 20 35" src="https://github.com/user-attachments/assets/347b7903-658c-4da3-9497-f0de59e4974a">
-<br><br>
-<img width="980" alt="Screenshot 2024-09-30 at 10 34 44" src="https://github.com/user-attachments/assets/a6041059-8ba6-4240-9228-56969f61588d">
-<br><br>
-<img width="980" alt="Screenshot 2024-10-02 at 18 47 20" src="https://github.com/user-attachments/assets/f598fd39-569e-4715-babc-b2e9e9ca2539">
-<br><br>
-<img width="980" alt="Screenshot 2024-10-07 at 15 47 54" src="https://github.com/user-attachments/assets/1e1a7c72-4c8e-46d9-aec1-5c337fd9a222">
+```text
+Internet-facing honeypot
+        ↓
+Windows Security Events
+        ↓
+PowerShell collection / enrichment
+        ↓
+External IP geolocation
+        ↓
+Microsoft Sentinel
+        ↓
+Detection & Investigation
+        ↓
+Geographic visualization
+```
 
+## Objective
+
+The original lab captured failed RDP authentication attempts against a controlled Windows honeypot hosted in Microsoft Azure.
+
+The project demonstrates how raw Windows security events can be collected, enriched with external IP context, ingested into a cloud SIEM, and visualized for investigation.
+
+## Architecture
+
+| Component | Role |
+|---|---|
+| Windows 10 Pro | Controlled honeypot |
+| Microsoft Azure | Cloud hosting |
+| Windows Event Logs | Authentication telemetry |
+| PowerShell | Event extraction/enrichment |
+| IP geolocation API | Source-context enrichment |
+| Microsoft Sentinel | SIEM, analytics and visualization |
+
+## Detection scenario
+
+The honeypot received repeated failed RDP authentication attempts.
+
+The investigation workflow was:
+
+```text
+Failed RDP login
+      ↓
+Windows Event Log
+      ↓
+PowerShell extraction
+      ↓
+Source IP enrichment
+      ↓
+Microsoft Sentinel
+      ↓
+Geographic visualization
+      ↓
+Threat investigation
+```
+
+The historical lab captured repeated activity from multiple geographic locations over several days.
+
+## What this demonstrates
+
+- Cloud-hosted security monitoring
+- Windows authentication telemetry
+- RDP attack-surface monitoring
+- PowerShell security automation
+- External threat-intelligence enrichment
+- SIEM ingestion
+- Geographic threat visualization
+- Investigation-oriented security analytics
+
+## Portfolio relevance
+
+This project demonstrates the SIEM side of the security-engineering workflow:
+
+**Telemetry → Enrichment → Detection → Investigation**
+
+It complements the Wazuh project, which focuses more heavily on endpoint detection and FIM.
+
+## Evidence
+
+The original repository contains screenshots showing:
+
+- Live failed-login activity
+- Geographic source information
+- Microsoft Sentinel world-map visualization
+- Activity observed across multiple days
+
+> Historical screenshots are retained as evidence of the original lab. The project should be interpreted as a lab demonstration, not as a current production Sentinel deployment.
+
+## Modernization notes
+
+The project originally used the name **Azure Sentinel**. Microsoft Sentinel is the current product name.
+
+For a new implementation, the lab should be rebuilt using current Microsoft Sentinel workflows and the current Microsoft Defender portal experience.
+
+## Recommended next iteration
+
+- Rebuild ingestion using current Microsoft Sentinel data connectors
+- Add KQL queries for failed RDP authentication
+- Create an analytic rule for repeated failures
+- Map the detection to MITRE ATT&CK
+- Add entity mapping for source IP and account
+- Create an incident investigation workflow
+- Add false-positive tuning
+- Document response recommendations
+- Reproduce the visualization with current Sentinel capabilities
+
+## Responsible use
+
+The honeypot was designed for controlled security research. Never expose intentionally vulnerable systems to the public Internet without appropriate isolation, monitoring, authorization and risk controls.
+
+## Author
+
+**Toluwalase Owolabi**
+
+Focus areas: Security Operations, Detection Engineering, SIEM, Cloud Security, Vulnerability Management and AI Security.
